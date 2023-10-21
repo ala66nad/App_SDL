@@ -20,8 +20,9 @@ class App : public Event
 {
     private:
         bool running{true};
-        int _limitR{0}, _x{50}, _y{300};
-        std::array<int, 4> _fps_limit{1000 / 20, 1000 / 30, 1000 / 60, 1000 / 90};
+        uint32_t _limitR{0};
+        int _x{50}, _y{300};
+        std::array<uint32_t, 4> _fps_limit{1000 / 20, 1000 / 30, 1000 / 60, 1000 / 90};
         SDL_Window *window{nullptr};
         SDL_Renderer *renderer{nullptr};
         Window win{168 * SCALE, 216 * SCALE, SCALE};
