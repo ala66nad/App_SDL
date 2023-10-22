@@ -1,6 +1,8 @@
 #pragma once
+#include "Entity.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <memory>
 #include <iostream>
 #include <string>
 
@@ -16,10 +18,13 @@ private:
 
 public:
     RenderWindow(std::string title, int w, int h);
+    SDL_Texture* LoadTexture(std::string filename);    
     bool OnInit();
     void OnCleanUp();
-    void OnClear();
+    void OnClear();    
     void OnDisplay();
     void OnDrawRect(SDL_Rect rectangle, uint32_t color);
+    void OnDrawTexture(SDL_Texture* texture, SDL_Rect OrigR, SDL_Rect DestR);
+    void OnDrawEntity(const std::shared_ptr<Entity> &entity);
     void OnError(std::string s);
 };

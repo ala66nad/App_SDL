@@ -1,6 +1,20 @@
 #include "RenderWindow.hpp"
+
 //----------------------------------------------------------------------
 RenderWindow::RenderWindow(std::string title, int w, int h): _title{title}, _w{w}, _h{h}{}
+
+//----------------------------------------------------------------------
+SDL_Texture* RenderWindow::LoadTexture(std::string filename)
+{
+    SDL_Texture* texture{nullptr};
+    texture = IMG_LoadTexture(_renderer, filename.c_str());
+    if (texture == NULL)
+    {
+        OnError("Imposible de charger la texture");
+        
+    }
+    return texture;   
+}
 
 //----------------------------------------------------------------------
 bool RenderWindow::OnInit()
@@ -44,6 +58,19 @@ void RenderWindow::OnClear()
 void RenderWindow::OnDisplay()
 {
     SDL_RenderPresent(_renderer);
+    SDL_SetRenderDrawBlendMode(_renderer, SDL_BLENDMODE_BLEND);
+}
+
+//----------------------------------------------------------------------
+void RenderWindow::OnDrawTexture(SDL_Texture* texture, SDL_Rect OrigR, SDL_Rect DestR)
+{
+    SDL_RenderCopy(_renderer, texture, &OrigR, &DestR);
+}
+
+//----------------------------------------------------------------------
+void RenderWindow::OnDrawEntity(const std::shared_ptr<Entity> &entity)
+{
+    SDL_RenderCopy(_renderer, entity->_texture, &entity->_blanc, &entity->_DestR);
 }
 
 //----------------------------------------------------------------------

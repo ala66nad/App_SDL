@@ -22,10 +22,10 @@ class App : public Event
     private:
         bool running{true};
         uint32_t _limitR{0};
-        int _x{50}, _y{300};
+        int _x{50}, _y{300}, _block{24};
         std::array<uint32_t, 4> _fps_limit{1000 / 20, 1000 / 30, 1000 / 60, 1000 / 90};
-        Window win{168 * SCALE, 216 * SCALE, SCALE};
-        std::unique_ptr<RenderWindow> window{nullptr};
+        Window _win{168 * SCALE, 216 * SCALE, SCALE};
+        std::shared_ptr<RenderWindow> window{nullptr};
 
     public:
         App();
