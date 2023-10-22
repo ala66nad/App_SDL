@@ -3,6 +3,7 @@
 //----------------------------------------------------------------------
 App::App()
 {
+    window = std::make_unique<RenderWindow>("game", win.w, win.h);
     running = true;
 }
 
@@ -28,43 +29,22 @@ int App::OnExecute()
 void App::OnLoop()
 {
     uint32_t frame_limit = 0;
-    SDL_Rect rectangle{_x, _y, 200, 150};
+    SDL_Rect rectangle{_x, _y, 50, 50};
     SDL_Event Event;
     while (running)
     {
+        rectangle.x = _x;
+        rectangle.y = _y;
+
         while (SDL_PollEvent(&Event))
         {
             OnEvent(&Event);
         }
         frame_limit = SDL_GetTicks() + _fps_limit[_limitR];
-        OnRender(rectangle);
+        window->OnClear();
+        window->OnDrawRect(rectangle, 0xFF22EE00);
+        window->OnDisplay();
         LimitFPS(frame_limit);
-        rectangle.x = _x;
-        rectangle.y = _y;
-    }
-}
-
-//----------------------------------------------------------------------
-void App::OnRender(SDL_Rect rectangle)
-{
-    if (SDL_SetRenderDrawColor(renderer, 33, 33, 33, 255) != 0)
-        OnError("Impossible de changer la couleur du rendu");
-    SDL_RenderClear(renderer);
-    OnDraw(rectangle);
-    SDL_RenderPresent(renderer);
-}
-
-//----------------------------------------------------------------------
-void App::OnDraw(SDL_Rect rectangle)
-{
-    if (SDL_SetRenderDrawColor(renderer, UNHEX(0xFF88EEFF)) != 0)
-    {
-        OnError("Impossible de changer la couleur du rendu");
-    }
-
-    if (SDL_RenderFillRect(renderer, &rectangle) != 0)
-    {
-        OnError("Impossible de dessiner");
     }
 }
 
@@ -121,8 +101,7 @@ void App::LimitFPS(uint32_t limit)
 //----------------------------------------------------------------------
 void App::OnCleanUp()
 {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    window->OnCleanUp();
     SDL_Quit();
     running = false;
 }

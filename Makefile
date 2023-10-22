@@ -7,7 +7,7 @@ SRC=$(wildcard src/*.cpp)
 OBJ=$(SRC:.cpp=.o)
 LINKS=-L sdl/lib
 INCLUDE=-I sdl/include -I src/include
-CFLAGS=-lmingw32 -lSDL2main -lSDL2
+CFLAGS=-lmingw32 -lSDL2main -lSDL2 -lSDL2_image
 
 ifeq ($(config),debug)
 TARGETDIR = sdl/bin/Debug

@@ -8,19 +8,17 @@ bool App::OnInit()
         return false;
     }
 
-    window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, win.w, win.h, SDL_WINDOW_SHOWN);
-    if (window == NULL)
+    if (!IMG_Init(IMG_INIT_PNG))
     {
-        OnError("Creation de la fenetre a echouee");
-        return false;
-    }
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == NULL)
-    {
-        OnError("Impossible de creer le rendu");
+        OnError("Initialisation IMG");
         return false;
     }
     
+    if(window->OnInit() == false)
+    {
+        OnError("Initialisation RenderWindow");
+        return false;
+    }
+
     return true;
 }
