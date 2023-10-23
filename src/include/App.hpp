@@ -5,14 +5,13 @@
 #include <SDL2/SDL_image.h>
 #include "RenderWindow.hpp"
 #include "BackGround.hpp"
-
 #include "Map.hpp"
 #include <iostream>
 #include <memory>
 #include <array>
 #include <vector>
 
-#define SCALE 4
+#define SCALE 3
 
 typedef struct Window
 {

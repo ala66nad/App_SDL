@@ -21,7 +21,6 @@ int App::OnExecute()
     {
          _backGround = std::make_unique<BackGround>(window->GetRenderer(), SCALE);
         _wall = std::make_unique<Map>();
-
         OnLoop();
     }
     OnCleanUp();
