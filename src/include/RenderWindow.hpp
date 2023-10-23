@@ -18,6 +18,7 @@ private:
 
 public:
     RenderWindow(std::string title, int w, int h);
+    SDL_Renderer* GetRenderer();
     SDL_Texture* LoadTexture(std::string filename);    
     bool OnInit();
     void OnCleanUp();
@@ -25,6 +26,5 @@ public:
     void OnDisplay();
     void OnDrawRect(SDL_Rect rectangle, uint32_t color);
     void OnDrawTexture(SDL_Texture* texture, SDL_Rect OrigR, SDL_Rect DestR);
-    void OnDrawEntity(const std::shared_ptr<Entity> &entity);
     void OnError(std::string s);
 };

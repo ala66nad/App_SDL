@@ -4,6 +4,12 @@
 RenderWindow::RenderWindow(std::string title, int w, int h): _title{title}, _w{w}, _h{h}{}
 
 //----------------------------------------------------------------------
+SDL_Renderer *RenderWindow::GetRenderer()
+{
+    return _renderer;
+}
+
+//----------------------------------------------------------------------
 SDL_Texture* RenderWindow::LoadTexture(std::string filename)
 {
     SDL_Texture* texture{nullptr};
@@ -65,12 +71,6 @@ void RenderWindow::OnDisplay()
 void RenderWindow::OnDrawTexture(SDL_Texture* texture, SDL_Rect OrigR, SDL_Rect DestR)
 {
     SDL_RenderCopy(_renderer, texture, &OrigR, &DestR);
-}
-
-//----------------------------------------------------------------------
-void RenderWindow::OnDrawEntity(const std::shared_ptr<Entity> &entity)
-{
-    SDL_RenderCopy(_renderer, entity->_texture, &entity->_blanc, &entity->_DestR);
 }
 
 //----------------------------------------------------------------------

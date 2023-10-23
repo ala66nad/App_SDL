@@ -17,11 +17,13 @@ App::~App()
 //----------------------------------------------------------------------
 int App::OnExecute()
 {
-    if (OnInit() == false)
+    if (OnInit())
     {
-        return -1;
+         _backGround = std::make_unique<BackGround>(window->GetRenderer());
+        _wall = std::make_unique<Map>();
+
+        OnLoop();
     }
-    OnLoop();
     OnCleanUp();
     return 0;
 }
@@ -30,24 +32,21 @@ int App::OnExecute()
 void App::OnLoop()
 {
     uint32_t frame_limit = 0;
-    SDL_Rect rectangle{0, 0, _block, _block};    
-    auto entity = std::make_shared<Entity>(window->LoadTexture("pacman_sprites.png"));
     SDL_Event Event;
+    auto wall = _wall->GetWall(window->GetRenderer(), 24);
     while (running)
-    {
-        
+    {        
         while (SDL_PollEvent(&Event))
         {
             OnEvent(&Event);
         }
         frame_limit = SDL_GetTicks() + _fps_limit[_limitR];
         window->OnClear();
-        window->OnDrawEntity(entity);
-        for (size_t i = 0; i < 21; i++)
+        _backGround->OnDraw();
+        for (auto &w : wall)
         {
-            rectangle.x = i*24;            
-            window->OnDrawRect(rectangle, 0xFF22EE99);
-        }        
+            w->OnDraw();
+        }  
         window->OnDisplay();
         LimitFPS(frame_limit);
     }

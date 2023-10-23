@@ -4,9 +4,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "RenderWindow.hpp"
+#include "BackGround.hpp"
+
+#include "Map.hpp"
 #include <iostream>
 #include <memory>
 #include <array>
+#include <vector>
 
 #define SCALE 3
 
@@ -26,6 +30,8 @@ class App : public Event
         std::array<uint32_t, 4> _fps_limit{1000 / 20, 1000 / 30, 1000 / 60, 1000 / 90};
         Window _win{168 * SCALE, 216 * SCALE, SCALE};
         std::shared_ptr<RenderWindow> window{nullptr};
+        std::unique_ptr<BackGround> _backGround{nullptr};
+        std::unique_ptr<Map> _wall;
 
     public:
         App();
