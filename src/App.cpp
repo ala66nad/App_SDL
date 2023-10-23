@@ -19,7 +19,7 @@ int App::OnExecute()
 {
     if (OnInit())
     {
-         _backGround = std::make_unique<BackGround>(window->GetRenderer());
+         _backGround = std::make_unique<BackGround>(window->GetRenderer(), SCALE);
         _wall = std::make_unique<Map>();
 
         OnLoop();
@@ -33,7 +33,7 @@ void App::OnLoop()
 {
     uint32_t frame_limit = 0;
     SDL_Event Event;
-    auto wall = _wall->GetWall(window->GetRenderer(), 24);
+    auto wall = _wall->GetWall(window->GetRenderer(), _block * SCALE);
     while (running)
     {        
         while (SDL_PollEvent(&Event))
@@ -42,11 +42,13 @@ void App::OnLoop()
         }
         frame_limit = SDL_GetTicks() + _fps_limit[_limitR];
         window->OnClear();
+
         _backGround->OnDraw();
         for (auto &w : wall)
         {
             w->OnDraw();
         }  
+
         window->OnDisplay();
         LimitFPS(frame_limit);
     }
