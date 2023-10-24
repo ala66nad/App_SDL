@@ -20,7 +20,7 @@ int App::OnExecute()
     {
          _backGround = std::make_unique<BackGround>(window->GetRenderer(), _win);
         _map = std::make_unique<Map>();
-        _pacman = std::make_unique<Pacman>(window->GetRenderer(), 10 * _block * SCALE, 20 * _block * SCALE, _block * SCALE);
+        _pacman = std::make_unique<Pacman>(window->GetRenderer(), 10 * _block * SCALE , 20 * _block * SCALE,  _block * SCALE);
         OnLoop();
     }
     OnCleanUp();
@@ -52,7 +52,7 @@ void App::OnLoop()
         //for (auto &z : zero) z->OnDraw();
         for (auto &d : dot) d->OnDraw();
         for (auto &d : powerdot) d->OnDraw();
-        _pacman->OnDraw();
+        _pacman->OnUpdate(wall);
 
         window->OnDisplay();
         LimitFPS(frame_limit);
@@ -73,24 +73,26 @@ void App::OnExit()
 
 //----------------------------------------------------------------------
 void App::OnKeyDown(SDL_Keycode sym, SDL_Keycode mod, SDL_Keycode scancode)
-{
-    int volosity = 10;
+{    
     switch (sym)
     {
     case SDLK_KP_PLUS:
         _limitR = _limitR < std::size(_fps_limit) - 1 ? _limitR + 1 : 0;
         break;
     case SDLK_RIGHT:
-        _x += volosity;
+        _pacman->LastKey = right;
         break;
     case SDLK_LEFT:
-        _x -= volosity;
+        _pacman->LastKey = left;
         break;
     case SDLK_UP:
-        _y -= volosity;
+        _pacman->LastKey = up;
         break;
     case SDLK_DOWN:
-        _y += volosity;
+        _pacman->LastKey = down;
+        break;
+    case SDLK_ESCAPE:
+        _pacman->LastKey = 5;
         break;
     default:
         break;

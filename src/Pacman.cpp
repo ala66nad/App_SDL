@@ -19,3 +19,54 @@ bool Pacman::OnDraw()
 }
 
 //----------------------------------------------------------------------
+void Pacman::OnUpdate(const std::vector<std::shared_ptr<Block>> &bg)
+{
+    if (LastKey == 5)
+    {
+        _vx = 0;
+        _vy = 0;
+    }
+    else if (LastKey == down)
+    {
+        _vy = 4;
+        _vx = 0;
+    }       
+    else if (LastKey == up)
+    {
+        _vy = -4;
+        _vx = 0;
+    }
+    else if (LastKey == right)
+    {
+        _vx = 4;
+        _vy = 0;
+    }        
+    else if (LastKey == left)
+    {
+        _vx = -4;
+        _vy = 0;
+    }
+
+    for (const auto &b : bg)
+    {       
+        if (CollisionWithWall(b))
+        {
+            _vx = 0;
+            _vy = 0;
+        }
+    }
+    _x += _vx;
+    _y += _vy;
+    OnDraw();
+}
+
+//----------------------------------------------------------------------
+bool Pacman::CollisionWithWall(const std::shared_ptr<Block> &b)
+{
+    return (_x + _block + _vx > b->_x &&
+            _x + _vx < b->_x + b->_block &&
+            _y + _block + _vy > b->_y &&
+            _y + _vy < b->_y + b->_block);
+}
+
+//----------------------------------------------------------------------

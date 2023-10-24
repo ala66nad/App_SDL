@@ -3,9 +3,11 @@
 
 class Block : public Entity
 {
-private:    
-    int _x{0}, _y{0}, _block{8};
+private:        
     uint32_t _color;
+
+public:
+    int _x{0}, _y{0}, _block{24};
 
 public:
     Block(SDL_Renderer* renderer, int x, int y, int block, uint32_t color);

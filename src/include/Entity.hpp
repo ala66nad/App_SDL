@@ -14,6 +14,14 @@ struct Window
     int s;
 };
 
+enum Direction
+{
+    right,
+    left,
+    up,
+    down
+};
+
 class Entity
 {
     private:

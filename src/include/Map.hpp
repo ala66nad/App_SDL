@@ -15,7 +15,7 @@ private:
 public:
     Map();
     std::vector<std::unique_ptr<Block>> GetDoor(SDL_Renderer* renderer, int block);
-    std::vector<std::unique_ptr<Block>> GetWall(SDL_Renderer* renderer, int block);
+    std::vector<std::shared_ptr<Block>> GetWall(SDL_Renderer *renderer, int block);
     std::vector<std::unique_ptr<Block>> GetZero(SDL_Renderer* renderer, int block);
     std::vector<std::unique_ptr<Dot>> GetDot(SDL_Renderer* renderer, int block, int scale);
     std::vector<std::unique_ptr<PowerDot>> GetPowerDot(SDL_Renderer* renderer, int block, int scale);

@@ -43,16 +43,16 @@ std::vector<std::unique_ptr<Block>> Map::GetDoor(SDL_Renderer* renderer, int blo
 }
 
 //----------------------------------------------------------------------
-std::vector<std::unique_ptr<Block>> Map::GetWall(SDL_Renderer* renderer, int block)
-{    
-    std::vector<std::unique_ptr<Block>> bg;
+std::vector<std::shared_ptr<Block>> Map::GetWall(SDL_Renderer *renderer, int block)
+{
+    std::vector<std::shared_ptr<Block>> bg;
     for (size_t y{0}; y < _map.size(); y++)
     {
         for (size_t x{0}; x < _map[y].size(); x++)
         {
             if (_map[y][x] == '1')
             {
-                bg.push_back(std::make_unique<Block>(renderer, x * block, y * block, block, 0xFF88EE77));
+                bg.push_back(std::make_shared<Block>(renderer, x * block, y * block, block, 0xFF88EE77));
             }
         }
     }
