@@ -4,21 +4,16 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "RenderWindow.hpp"
+#include "Entity.hpp"
 #include "BackGround.hpp"
 #include "Map.hpp"
+#include "Pacman.hpp"
 #include <iostream>
 #include <memory>
 #include <array>
 #include <vector>
 
 #define SCALE 3
-
-typedef struct Window
-{
-    int w;
-    int h;
-    int s;
-} Window;
 
 class App : public Event
 {
@@ -30,7 +25,8 @@ class App : public Event
         Window _win{168 * SCALE, 216 * SCALE, SCALE};
         std::shared_ptr<RenderWindow> window{nullptr};
         std::unique_ptr<BackGround> _backGround{nullptr};
-        std::unique_ptr<Map> _wall;
+        std::unique_ptr<Map> _map;
+        std::unique_ptr<Pacman> _pacman;
 
     public:
         App();

@@ -5,6 +5,15 @@
 #include <iostream>
 #include <string>
 
+#define UNHEX(c) ((c >> 8 * 3) & 0xFF), ((c >> 8 * 2) & 0xFF), ((c >> 8 * 1) & 0xFF), ((c >> 8 * 0) & 0xFF)
+
+struct Window
+{
+    int w;
+    int h;
+    int s;
+};
+
 class Entity
 {
     private:

@@ -1,12 +1,21 @@
 #include "BackGround.hpp"
 
 //----------------------------------------------------------------------
-BackGround::BackGround(SDL_Renderer *renderer, int scale) : Entity(renderer)
-{
-    _filename = "pacman_sprites.png";
+BackGround::BackGround(SDL_Renderer *renderer, Window win) : Entity(renderer)
+{    
     _texture = LoadTexture();
-    SDL_Rect tmpR{0, 0, 168 * scale, 216 * scale};
-    _DestR = tmpR;
+    _DestR.w = win.w;
+    _DestR.h = win.h;
+}
+
+//----------------------------------------------------------------------
+BackGround::~BackGround()
+{
+    if (_texture != NULL)
+    {
+        SDL_DestroyTexture(_texture);
+        _texture = nullptr;
+    }    
 }
 
 //----------------------------------------------------------------------

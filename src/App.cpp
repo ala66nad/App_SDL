@@ -1,5 +1,4 @@
 #include "App.hpp"
-#include "Entity.hpp"
 
 //----------------------------------------------------------------------
 App::App()
@@ -19,8 +18,9 @@ int App::OnExecute()
 {
     if (OnInit())
     {
-         _backGround = std::make_unique<BackGround>(window->GetRenderer(), SCALE);
-        _wall = std::make_unique<Map>();
+         _backGround = std::make_unique<BackGround>(window->GetRenderer(), _win);
+        _map = std::make_unique<Map>();
+        _pacman = std::make_unique<Pacman>(window->GetRenderer(), 10 * _block * SCALE, 20 * _block * SCALE, _block * SCALE);
         OnLoop();
     }
     OnCleanUp();
@@ -32,7 +32,11 @@ void App::OnLoop()
 {
     uint32_t frame_limit = 0;
     SDL_Event Event;
-    auto wall = _wall->GetWall(window->GetRenderer(), _block * SCALE);
+    auto wall = _map->GetWall(window->GetRenderer(), _block * SCALE);
+    auto door = _map->GetDoor(window->GetRenderer(), _block * SCALE);
+    //auto zero = _map->GetZero(window->GetRenderer(), _block * SCALE);
+    auto dot = _map->GetDot(window->GetRenderer(), _block * SCALE, SCALE);
+    auto powerdot = _map->GetPowerDot(window->GetRenderer(), _block * SCALE, SCALE);
     while (running)
     {        
         while (SDL_PollEvent(&Event))
@@ -43,10 +47,12 @@ void App::OnLoop()
         window->OnClear();
 
         _backGround->OnDraw();
-        for (auto &w : wall)
-        {
-            w->OnDraw();
-        }  
+        for (auto &w : wall) w->OnDraw();
+        for (auto &d : door) d->OnDraw();
+        //for (auto &z : zero) z->OnDraw();
+        for (auto &d : dot) d->OnDraw();
+        for (auto &d : powerdot) d->OnDraw();
+        _pacman->OnDraw();
 
         window->OnDisplay();
         LimitFPS(frame_limit);

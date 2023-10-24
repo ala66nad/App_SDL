@@ -2,7 +2,10 @@
 
 
 //----------------------------------------------------------------------
-Entity::Entity(SDL_Renderer *renderer): _renderer{renderer}{}
+Entity::Entity(SDL_Renderer *renderer): _renderer{renderer}
+{
+    _filename = "pacman_sprites.png";
+}
 
 //----------------------------------------------------------------------
 SDL_Texture* Entity::LoadTexture()

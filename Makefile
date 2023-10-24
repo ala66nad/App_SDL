@@ -29,4 +29,5 @@ $(TARGET) : $(OBJ)
 	$(CC) -o $@ $(INCLUDE) -c $< $(LINKS) $(CFLAGS)
 
 clean:
-	rm src/*.o ${TARGETDIR}/*.exe
+	rm src/*.o 
+	rm ${TARGETDIR}/*.exe

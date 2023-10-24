@@ -34,6 +34,15 @@ Map::Map()
 }
 
 //----------------------------------------------------------------------
+std::vector<std::unique_ptr<Block>> Map::GetDoor(SDL_Renderer* renderer, int block)
+{
+    std::vector<std::unique_ptr<Block>> door;
+    door.push_back(std::make_unique<Block>(renderer, 0 * block, 13 * block, block, 0x99FF99F88));
+    door.push_back(std::make_unique<Block>(renderer, 20 * block, 13 * block, block, 0x99FF9988));
+    return door;
+}
+
+//----------------------------------------------------------------------
 std::vector<std::unique_ptr<Block>> Map::GetWall(SDL_Renderer* renderer, int block)
 {    
     std::vector<std::unique_ptr<Block>> bg;
@@ -44,6 +53,57 @@ std::vector<std::unique_ptr<Block>> Map::GetWall(SDL_Renderer* renderer, int blo
             if (_map[y][x] == '1')
             {
                 bg.push_back(std::make_unique<Block>(renderer, x * block, y * block, block, 0xFF88EE77));
+            }
+        }
+    }
+    return bg;
+}
+
+//----------------------------------------------------------------------
+std::vector<std::unique_ptr<Block>> Map::GetZero(SDL_Renderer* renderer, int block)
+{    
+    std::vector<std::unique_ptr<Block>> bg;
+    for (size_t y{0}; y < _map.size(); y++)
+    {
+        for (size_t x{0}; x < _map[y].size(); x++)
+        {
+            if (_map[y][x] == '0')
+            {
+                bg.push_back(std::make_unique<Block>(renderer, x * block, y * block, block, 0xFF444477));
+            }
+        }
+    }
+    return bg;
+}
+
+//----------------------------------------------------------------------
+std::vector<std::unique_ptr<Dot>> Map::GetDot(SDL_Renderer* renderer, int block, int scale)
+{    
+    std::vector<std::unique_ptr<Dot>> bg;
+    for (size_t y{0}; y < _map.size(); y++)
+    {
+        for (size_t x{0}; x < _map[y].size(); x++)
+        {
+            if (_map[y][x] == '2')
+            {
+                bg.push_back(std::make_unique<Dot>(renderer, x * block, y * block, block, scale));
+            }
+        }
+    }
+    return bg;
+}
+
+//----------------------------------------------------------------------
+std::vector<std::unique_ptr<PowerDot>> Map::GetPowerDot(SDL_Renderer* renderer, int block, int scale)
+{    
+    std::vector<std::unique_ptr<PowerDot>> bg;
+    for (size_t y{0}; y < _map.size(); y++)
+    {
+        for (size_t x{0}; x < _map[y].size(); x++)
+        {
+            if (_map[y][x] == '3')
+            {
+                bg.push_back(std::make_unique<PowerDot>(renderer, x * block, y * block, block, scale));
             }
         }
     }
