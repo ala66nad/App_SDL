@@ -34,59 +34,51 @@ Map::Map()
 }
 
 //----------------------------------------------------------------------
-std::vector<std::unique_ptr<Block>> Map::GetDoor(SDL_Renderer* renderer, int block)
+std::vector<std::shared_ptr<Block>> Map::GetBlock(SDL_Renderer *renderer, int block, char c, uint32_t color)
 {
-    std::vector<std::unique_ptr<Block>> door;
-    door.push_back(std::make_unique<Block>(renderer, 0 * block, 13 * block, block, 0x99FF99F88));
-    door.push_back(std::make_unique<Block>(renderer, 20 * block, 13 * block, block, 0x99FF9988));
-    return door;
+    std::vector<std::shared_ptr<Block>> b;
+    for (size_t y{0}; y < _map.size(); y++)
+    {
+        for (size_t x{0}; x < _map[y].size(); x++)
+        {
+            if (_map[y][x] == c)
+            {
+                b.push_back(std::make_shared<Block>(renderer, x * block, y * block, block, color));
+            }
+        }
+    }
+    return b;
+}
+
+//----------------------------------------------------------------------
+std::vector<std::shared_ptr<Block>> Map::GetDoor(SDL_Renderer *renderer, int block)
+{
+    return GetBlock(renderer, block, '5', 0x99FF9988);
 }
 
 //----------------------------------------------------------------------
 std::vector<std::shared_ptr<Block>> Map::GetWall(SDL_Renderer *renderer, int block)
 {
-    std::vector<std::shared_ptr<Block>> bg;
-    for (size_t y{0}; y < _map.size(); y++)
-    {
-        for (size_t x{0}; x < _map[y].size(); x++)
-        {
-            if (_map[y][x] == '1')
-            {
-                bg.push_back(std::make_shared<Block>(renderer, x * block, y * block, block, 0xFF88EE77));
-            }
-        }
-    }
-    return bg;
+    return GetBlock(renderer, block, '1', 0xFF88EE77);
 }
 
 //----------------------------------------------------------------------
-std::vector<std::unique_ptr<Block>> Map::GetZero(SDL_Renderer* renderer, int block)
-{    
-    std::vector<std::unique_ptr<Block>> bg;
-    for (size_t y{0}; y < _map.size(); y++)
-    {
-        for (size_t x{0}; x < _map[y].size(); x++)
-        {
-            if (_map[y][x] == '0')
-            {
-                bg.push_back(std::make_unique<Block>(renderer, x * block, y * block, block, 0xFF444477));
-            }
-        }
-    }
-    return bg;
+std::vector<std::shared_ptr<Block>> Map::GetZero(SDL_Renderer *renderer, int block)
+{
+    return GetBlock(renderer, block, '0', 0xFF444477);
 }
 
 //----------------------------------------------------------------------
-std::vector<std::unique_ptr<Dot>> Map::GetDot(SDL_Renderer* renderer, int block, int scale)
-{    
-    std::vector<std::unique_ptr<Dot>> bg;
+std::vector<std::shared_ptr<Dot>> Map::GetDot(SDL_Renderer *renderer, int block, int scale)
+{
+    std::vector<std::shared_ptr<Dot>> bg;
     for (size_t y{0}; y < _map.size(); y++)
     {
         for (size_t x{0}; x < _map[y].size(); x++)
         {
             if (_map[y][x] == '2')
             {
-                bg.push_back(std::make_unique<Dot>(renderer, x * block, y * block, block, scale));
+                bg.push_back(std::make_shared<Dot>(renderer, x * block, y * block, block, scale));
             }
         }
     }
@@ -94,16 +86,16 @@ std::vector<std::unique_ptr<Dot>> Map::GetDot(SDL_Renderer* renderer, int block,
 }
 
 //----------------------------------------------------------------------
-std::vector<std::unique_ptr<PowerDot>> Map::GetPowerDot(SDL_Renderer* renderer, int block, int scale)
-{    
-    std::vector<std::unique_ptr<PowerDot>> bg;
+std::vector<std::shared_ptr<PowerDot>> Map::GetPowerDot(SDL_Renderer *renderer, int block, int scale)
+{
+    std::vector<std::shared_ptr<PowerDot>> bg;
     for (size_t y{0}; y < _map.size(); y++)
     {
         for (size_t x{0}; x < _map[y].size(); x++)
         {
             if (_map[y][x] == '3')
             {
-                bg.push_back(std::make_unique<PowerDot>(renderer, x * block, y * block, block, scale));
+                bg.push_back(std::make_shared<PowerDot>(renderer, x * block, y * block, block, scale));
             }
         }
     }

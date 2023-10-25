@@ -10,7 +10,7 @@ class Pacman : public Entity
 {
     private:
         int _x{0}, _y{0}, _block{0};
-        int _vx{0}, _vy{0};
+        int _vx{0}, _vy{0}, _velocity{4};
 
     public:
         int LastKey{5};
@@ -20,4 +20,7 @@ class Pacman : public Entity
         bool OnDraw();
         void OnUpdate(const std::vector<std::shared_ptr<Block>> &bg);
         bool CollisionWithWall(const std::shared_ptr<Block> &bg);
+        void ControlCollision(const std::vector<std::shared_ptr<Block>> &bg);
+        void ControlCollisionVH(const std::vector<std::shared_ptr<Block>> &bg);
+        void ControlKey();
 };
