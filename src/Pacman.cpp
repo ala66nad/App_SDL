@@ -73,6 +73,21 @@ void Pacman::ControlCollisionVH(const std::vector<std::shared_ptr<Block>> &bg)
 }
 
 //----------------------------------------------------------------------
+void Pacman::CollisionDoor(const std::vector<std::shared_ptr<Block>> &bg)
+{
+    for (const auto &b : bg)
+    {
+        if (CollisionWithWall(b))
+        {
+            if (_vx == -_velocity)
+                _x = 19 * _block;
+            else if (_vx == _velocity)
+                _x = _block;
+        }
+    }
+}
+
+//----------------------------------------------------------------------
 void Pacman::ControlKey()
 {
     switch (LastKey)

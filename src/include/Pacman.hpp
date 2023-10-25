@@ -5,7 +5,6 @@
 #include <vector>
 #include <memory>
 
-
 class Pacman : public Entity
 {
     private:
@@ -18,9 +17,10 @@ class Pacman : public Entity
     public:
         Pacman(SDL_Renderer* renderer, int x, int y, int block);
         bool OnDraw();
-        void OnUpdate(const std::vector<std::shared_ptr<Block>> &bg);
-        bool CollisionWithWall(const std::shared_ptr<Block> &bg);
-        void ControlCollision(const std::vector<std::shared_ptr<Block>> &bg);
-        void ControlCollisionVH(const std::vector<std::shared_ptr<Block>> &bg);
+        void OnUpdate(const std::vector<std::shared_ptr<Block>> &b);
+        bool CollisionWithWall(const std::shared_ptr<Block> &b);
+        void ControlCollision(const std::vector<std::shared_ptr<Block>> &b);
+        void ControlCollisionVH(const std::vector<std::shared_ptr<Block>> &b);
+        void CollisionDoor(const std::vector<std::shared_ptr<Block>> &b);
         void ControlKey();
 };

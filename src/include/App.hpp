@@ -19,7 +19,7 @@ class App : public Event
 {
     private:
         bool running{true};
-        uint32_t _limitR{0};
+        uint32_t _limitR{1};
         int _x{50}, _y{300}, _block{8};
         std::array<uint32_t, 4> _fps_limit{1000 / 20, 1000 / 30, 1000 / 60, 1000 / 90};
         Window _win{168 * SCALE, 216 * SCALE, SCALE};

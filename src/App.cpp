@@ -34,7 +34,7 @@ void App::OnLoop()
     SDL_Event Event;
     auto wall = _map->GetWall(window->GetRenderer(), _block * SCALE);
     auto door = _map->GetDoor(window->GetRenderer(), _block * SCALE);
-    //auto zero = _map->GetZero(window->GetRenderer(), _block * SCALE);
+    auto zero = _map->GetZero(window->GetRenderer(), _block * SCALE);
     auto dot = _map->GetDot(window->GetRenderer(), _block * SCALE, SCALE);
     auto powerdot = _map->GetPowerDot(window->GetRenderer(), _block * SCALE, SCALE);
     while (running)
@@ -49,10 +49,11 @@ void App::OnLoop()
         _backGround->OnDraw();
         for (auto &w : wall) w->OnDraw();
         for (auto &d : door) d->OnDraw();
-        //for (auto &z : zero) z->OnDraw();
+        for (auto &z : zero) z->OnDraw();
         for (auto &d : dot) d->OnDraw();
         for (auto &d : powerdot) d->OnDraw();
         _pacman->OnUpdate(wall);
+        _pacman->CollisionDoor(door);
 
         window->OnDisplay();
         LimitFPS(frame_limit);
