@@ -88,6 +88,45 @@ void Pacman::CollisionDoor(const std::vector<std::shared_ptr<Block>> &bg)
 }
 
 //----------------------------------------------------------------------
+bool Pacman::CollisionWithDot(const std::shared_ptr<Dot> &b)
+{
+    return (_x + _block + _vx > b->_x &&
+            _x + _vx < b->_x + b->_block &&
+            _y + _block + _vy > b->_y &&
+            _y + _vy < b->_y + b->_block);
+}
+
+//----------------------------------------------------------------------
+void Pacman::CollisionDot(const std::vector<std::shared_ptr<Dot>> &dots)
+{
+    for (const auto &d : dots)
+    {
+        if (CollisionWithDot(d))
+            d->_blockD = 0;
+        d->OnDraw();
+    }
+}
+
+//----------------------------------------------------------------------
+bool Pacman::CollisionWithPowerDot(const std::shared_ptr<PowerDot> &b)
+{
+    return (_x + _block + _vx > b->_x &&
+            _x + _vx < b->_x + b->_block &&
+            _y + _block + _vy > b->_y &&
+            _y + _vy < b->_y + b->_block);
+}
+
+//----------------------------------------------------------------------
+void Pacman::CollisionPowerDot(const std::vector<std::shared_ptr<PowerDot>> &dots)
+{
+    for (const auto &d : dots)
+    {
+        if (CollisionWithPowerDot(d))
+            d->_blockD = 0;
+        d->OnDraw();
+    }
+}
+//----------------------------------------------------------------------
 void Pacman::ControlKey()
 {
     switch (LastKey)

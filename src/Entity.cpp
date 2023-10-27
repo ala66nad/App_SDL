@@ -8,15 +8,15 @@ Entity::Entity(SDL_Renderer *renderer): _renderer{renderer}
 }
 
 //----------------------------------------------------------------------
-SDL_Texture* Entity::LoadTexture()
-{
-    return IMG_LoadTexture(_renderer, _filename.c_str());    
-}
-
-//----------------------------------------------------------------------
 Entity::~Entity()
 {
     OnCleanUp();
+}
+
+//----------------------------------------------------------------------
+SDL_Texture* Entity::LoadTexture()
+{
+    return IMG_LoadTexture(_renderer, _filename.c_str());    
 }
 
 //----------------------------------------------------------------------

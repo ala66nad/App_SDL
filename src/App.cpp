@@ -30,13 +30,16 @@ int App::OnExecute()
 //----------------------------------------------------------------------
 void App::OnLoop()
 {
+    bool showBlock{false};
     uint32_t frame_limit = 0;
     SDL_Event Event;
     auto wall = _map->GetWall(window->GetRenderer(), _block * SCALE);
+    auto doorGhost = _map->GetDoorGhost(window->GetRenderer(), _block * SCALE);
     auto door = _map->GetDoor(window->GetRenderer(), _block * SCALE);
     auto zero = _map->GetZero(window->GetRenderer(), _block * SCALE);
     auto dot = _map->GetDot(window->GetRenderer(), _block * SCALE, SCALE);
     auto powerdot = _map->GetPowerDot(window->GetRenderer(), _block * SCALE, SCALE);
+    auto wallWithDoorGhost = AddVec(wall, doorGhost);
     while (running)
     {        
         while (SDL_PollEvent(&Event))
@@ -47,17 +50,37 @@ void App::OnLoop()
         window->OnClear();
 
         _backGround->OnDraw();
-        for (auto &w : wall) w->OnDraw();
-        for (auto &d : door) d->OnDraw();
-        for (auto &z : zero) z->OnDraw();
-        for (auto &d : dot) d->OnDraw();
-        for (auto &d : powerdot) d->OnDraw();
-        _pacman->OnUpdate(wall);
-        _pacman->CollisionDoor(door);
-
+        if (showBlock)
+        {
+            OnDraw(wall);
+            OnDraw(doorGhost);
+            OnDraw(door);
+            OnDraw(zero);
+        }
+        OnDraw(dot);
+        OnDraw(powerdot);
+        _pacman->OnUpdate(wallWithDoorGhost);
+        _pacman->CollisionDoor(door);        
+        _pacman->CollisionDot(dot);
+        _pacman->CollisionPowerDot(powerdot);
+        
         window->OnDisplay();
         LimitFPS(frame_limit);
     }
+}
+
+//----------------------------------------------------------------------
+void App::OnDraw(auto &block)
+{
+    for (auto &b : block) b->OnDraw();
+}
+
+//----------------------------------------------------------------------
+std::vector<std::shared_ptr<Block>> App::AddVec(std::vector<std::shared_ptr<Block>> &b1, std::vector<std::shared_ptr<Block>> &b2)
+{
+    std::vector<std::shared_ptr<Block>> b = b1;
+    b.insert(b.end(), b2.begin(), b2.end());
+    return b;
 }
 
 //----------------------------------------------------------------------
@@ -80,6 +103,10 @@ void App::OnKeyDown(SDL_Keycode sym, SDL_Keycode mod, SDL_Keycode scancode)
     case SDLK_KP_PLUS:
         _limitR = _limitR < std::size(_fps_limit) - 1 ? _limitR + 1 : 0;
         break;
+    case SDLK_b:
+        _backGround->orig =  _backGround->orig == 0 ? 1 : 0;
+        break;
+
     case SDLK_RIGHT:
         _pacman->LastKey = right;
         break;

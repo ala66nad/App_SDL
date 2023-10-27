@@ -51,6 +51,12 @@ std::vector<std::shared_ptr<Block>> Map::GetBlock(SDL_Renderer *renderer, int bl
 }
 
 //----------------------------------------------------------------------
+std::vector<std::shared_ptr<Block>> Map::GetDoorGhost(SDL_Renderer *renderer, int block)
+{
+    return GetBlock(renderer, block, '4', 0x99FF9988);        
+}
+
+//----------------------------------------------------------------------
 std::vector<std::shared_ptr<Block>> Map::GetDoor(SDL_Renderer *renderer, int block)
 {
     return GetBlock(renderer, block, '5', 0x99FF9988);

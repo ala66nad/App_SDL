@@ -13,7 +13,7 @@ Dot::Dot(SDL_Renderer *renderer, int x, int y, int block, int scale) : Entity(re
 //----------------------------------------------------------------------
 void Dot::OnDraw()
 {
-    int dot = 2 * _scale;
+    int dot = _blockD * _scale;
     int pos = _block / 2 - _scale;
     SDL_Rect DestR{_x + pos, _y + pos, dot, dot};
     SDL_RenderCopy(_renderer, _texture, &_OrigR, &DestR);

@@ -32,6 +32,8 @@ class App : public Event
         App();
         ~App();
         int OnExecute();
+        void OnDraw(auto &block);
+        std::vector<std::shared_ptr<Block>> AddVec(std::vector<std::shared_ptr<Block>> &b1, std::vector<std::shared_ptr<Block>> &b2);
         void OnEvent(SDL_Event *Event);
         void OnExit();
         void OnKeyDown(SDL_Keycode sym, SDL_Keycode mod, SDL_Keycode scancode);

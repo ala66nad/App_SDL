@@ -4,6 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #define UNHEX(c) ((c >> 8 * 3) & 0xFF), ((c >> 8 * 2) & 0xFF), ((c >> 8 * 1) & 0xFF), ((c >> 8 * 0) & 0xFF)
 

@@ -21,6 +21,6 @@ BackGround::~BackGround()
 //----------------------------------------------------------------------
 void BackGround::OnDraw()
 {    
-    SDL_RenderCopy(_renderer, _texture, &_blueR, &_DestR);
+    SDL_RenderCopy(_renderer, _texture, &_OrigR[orig], &_DestR);
 }
 //----------------------------------------------------------------------

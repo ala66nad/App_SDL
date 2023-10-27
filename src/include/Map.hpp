@@ -16,6 +16,7 @@ private:
 
 public:
     Map();
+    std::vector<std::shared_ptr<Block>> GetDoorGhost(SDL_Renderer *renderer, int block);
     std::vector<std::shared_ptr<Block>> GetDoor(SDL_Renderer *renderer, int block);
     std::vector<std::shared_ptr<Block>> GetWall(SDL_Renderer *renderer, int block);
     std::vector<std::shared_ptr<Block>> GetZero(SDL_Renderer *renderer, int block);
