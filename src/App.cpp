@@ -21,6 +21,7 @@ int App::OnExecute()
          _backGround = std::make_unique<BackGround>(window->GetRenderer(), _win);
         _map = std::make_unique<Map>();
         _pacman = std::make_unique<Pacman>(window->GetRenderer(), 10 * _block * SCALE , 20 * _block * SCALE,  _block * SCALE);
+        _ghostRed = std::make_unique<Ghost>(window->GetRenderer(), 10 * _block * SCALE, 10 * _block * SCALE, _block * SCALE);
         OnLoop();
     }
     OnCleanUp();
@@ -63,7 +64,7 @@ void App::OnLoop()
         _pacman->CollisionDoor(door);        
         _pacman->CollisionDot(dot);
         _pacman->CollisionPowerDot(powerdot);
-        
+        _ghostRed->OnUpdate(wall);
         window->OnDisplay();
         LimitFPS(frame_limit);
     }

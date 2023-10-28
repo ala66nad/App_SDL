@@ -10,8 +10,6 @@
 class Pacman : public Entity
 {
     private:
-        int _x{0}, _y{0}, _block{0};
-        int _vx{0}, _vy{0}, _velocity{4};
 
     public:
         int LastKey{5};

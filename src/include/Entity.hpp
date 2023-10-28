@@ -25,10 +25,11 @@ enum Direction
 
 class Entity
 {
-    private:
-        int _x, y;
+    private:        
 
-    protected:        
+    protected:
+        int _x{0}, _y{0}, _block{0};
+        int _vx{0}, _vy{0}, _velocity{4};
         std::string _filename;
         SDL_Renderer *_renderer{nullptr};
 
