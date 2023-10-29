@@ -16,7 +16,6 @@ class Pacman : public Entity
 
     public:
         Pacman(SDL_Renderer* renderer, int x, int y, int block);
-        bool OnDraw();
         void OnUpdate(const std::vector<std::shared_ptr<Block>> &b);
         bool CollisionWithWall(const std::shared_ptr<Block> &b);
         void ControlCollision(const std::vector<std::shared_ptr<Block>> &b);

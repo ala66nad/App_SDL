@@ -16,8 +16,7 @@ SDL_Texture* RenderWindow::LoadTexture(std::string filename)
     texture = IMG_LoadTexture(_renderer, filename.c_str());
     if (texture == NULL)
     {
-        OnError("Imposible de charger la texture");
-        
+        OnError("Imposible de charger la texture");        
     }
     return texture;   
 }
@@ -56,7 +55,7 @@ void RenderWindow::OnCleanUp()
 void RenderWindow::OnClear()
 {
     if (SDL_SetRenderDrawColor(_renderer, 33, 33, 33, 255) != 0)
-        OnError("Impossible de changer la couleur du rendu");
+       OnError("Impossible de changer la couleur du rendu");
     SDL_RenderClear(_renderer);
 }
 
@@ -91,6 +90,6 @@ void RenderWindow::OnDrawRect(SDL_Rect rectangle, uint32_t color)
 void RenderWindow::OnError(std::string s)
 {
     std::cout << "Erreur : " << s << " > " << SDL_GetError() << std::endl;
-    OnCleanUp();
+   // OnCleanUp();
 }
 //----------------------------------------------------------------------

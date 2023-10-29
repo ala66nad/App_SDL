@@ -28,7 +28,10 @@ class App : public Event
         std::unique_ptr<BackGround> _backGround{nullptr};
         std::unique_ptr<Map> _map;
         std::unique_ptr<Pacman> _pacman;
-        std::unique_ptr<Ghost> _ghostRed;
+        std::shared_ptr<Ghost> _ghostRed;
+        std::shared_ptr<Ghost> _ghostPink;
+        std::shared_ptr<Ghost> _ghostInk;
+        std::shared_ptr<Ghost> _ghostClyde;
 
     public:
         App();
