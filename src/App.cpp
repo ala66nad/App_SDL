@@ -21,10 +21,7 @@ int App::OnExecute()
          _backGround = std::make_unique<BackGround>(window->GetRenderer(), _win);
         _map = std::make_unique<Map>();
         _pacman = std::make_unique<Pacman>(window->GetRenderer(), 10 * _block * SCALE , 20 * _block * SCALE,  _block * SCALE);
-        _ghostRed = std::make_shared<Ghost>(window->GetRenderer(), 10 * _block * SCALE, 10 * _block * SCALE, _block * SCALE, 0xD82800FF);
-        _ghostPink = std::make_shared<Ghost>(window->GetRenderer(), 10 * _block * SCALE, 10 * _block * SCALE, _block * SCALE, 0xFCC4D8FF);
-        _ghostInk = std::make_shared<Ghost>(window->GetRenderer(), 10 * _block * SCALE, 10 * _block * SCALE, _block * SCALE, 0x00E8D8FF);
-        _ghostClyde = std::make_shared<Ghost>(window->GetRenderer(), 10 * _block * SCALE, 10 * _block * SCALE, _block * SCALE, 0xFC9838FF);
+        _ghosts = std::make_unique<Ghosts>(window->GetRenderer(), _block * SCALE);
         OnLoop();
     }
     OnCleanUp();
@@ -67,15 +64,8 @@ void App::OnLoop()
         _pacman->CollisionDoor(door);        
         _pacman->CollisionDot(dot);
         _pacman->CollisionPowerDot(powerdot);
-        _ghostRed->OnUpdate(wallWithDoorGhost);
-        _ghostRed->CollisionDoor(door);
-        _ghostPink->OnUpdate(wallWithDoorGhost);
-        _ghostPink->CollisionDoor(door);
-        _ghostInk->OnUpdate(wallWithDoorGhost);
-        _ghostInk->CollisionDoor(door);
-        _ghostClyde->OnUpdate(wallWithDoorGhost);
-        _ghostClyde->CollisionDoor(door);
-
+        _ghosts->OnUpdate(wallWithDoorGhost, door);
+        
         window->OnDisplay();
         LimitFPS(frame_limit);
     }

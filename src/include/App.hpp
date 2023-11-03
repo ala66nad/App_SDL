@@ -8,6 +8,7 @@
 #include "BackGround.hpp"
 #include "Map.hpp"
 #include "Pacman.hpp"
+#include "Ghosts.hpp"
 #include "Ghost.hpp"
 #include <iostream>
 #include <memory>
@@ -28,10 +29,7 @@ class App : public Event
         std::unique_ptr<BackGround> _backGround{nullptr};
         std::unique_ptr<Map> _map;
         std::unique_ptr<Pacman> _pacman;
-        std::shared_ptr<Ghost> _ghostRed;
-        std::shared_ptr<Ghost> _ghostPink;
-        std::shared_ptr<Ghost> _ghostInk;
-        std::shared_ptr<Ghost> _ghostClyde;
+        std::unique_ptr<Ghosts> _ghosts;
 
     public:
         App();
